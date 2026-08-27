@@ -304,3 +304,28 @@ print("Count Of Elements = \(countOfElements(arrCOE))")
 
 let arrCOE2 = [5, 5, 3]
 print("Count Of Elements = \(countOfElements(arrCOE2))")
+
+
+// MARK: ========== Second Largest ==========
+/*
+ You are given an integer array A. You have to find the second largest element/value in the array or report that no such element exists.
+ 
+ Return the second largest element. If no such element exist then return -1.
+ */
+
+func secondLargest(_ A: [Int]) -> Int {
+    let maxVal = getMax(A)
+    var ans = -1
+    for value in A {
+        if value != maxVal {
+            ans = max(ans, value)
+        }
+    }
+    return ans
+}
+
+var arrSL = [1, 2, 3, 4, 5]
+print("Second Largest in [1, 2, 3, 4, 5] = \(secondLargest(arrSL))")
+
+var arrSL2 = [1]
+print("Second Largest in [1, 2, 3, 4, 5] = \(secondLargest(arrSL2))")
