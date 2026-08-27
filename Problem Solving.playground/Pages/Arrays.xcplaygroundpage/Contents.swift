@@ -329,3 +329,6 @@ print("Second Largest in [1, 2, 3, 4, 5] = \(secondLargest(arrSL))")
 
 var arrSL2 = [1]
 print("Second Largest in [1, 2, 3, 4, 5] = \(secondLargest(arrSL2))")
+
+// TC : O(N+N) = O(N)
+// SC : O(1)
