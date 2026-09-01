@@ -119,3 +119,75 @@ oddIndexed(arrEI, Q: queryArrEI)
 
 // TC : O(N+Q)
 // SC : O(N)
+
+
+// MARK: Special Index problem
+/*
+ Given an array, arr[] of size N, the task is to find the count of array indices such that removing an element from these indices makes the sum of even-indexed and odd-indexed array elements equal.
+ */
+print("======= specialIndexCount ===========")
+func specialIndexCount(_ arr: [Int]) -> Int {
+    let N = arr.count
+    // Create prefix-even arr
+    var pfEven: [Int] = Array(repeating: 0, count: N)
+    pfEven[0] = arr[0]
+    for i in 1...N-1 {
+        if i % 2 == 0 {
+            pfEven[i] = pfEven[i - 1] + arr[i]
+        } else {
+            pfEven[i] = pfEven[i - 1]
+        }
+    }
+    
+    // Create prefix-odd arr
+    var pfOdd: [Int] = Array(repeating: 0, count: N)
+    pfOdd[0] = 0
+    for i in 1...N-1 {
+        if i % 2 == 1 {
+            pfOdd[i] = pfOdd[i - 1] + arr[i]
+        } else {
+            pfOdd[i] = pfOdd[i - 1]
+        }
+    }
+    
+    var count = 0
+    for i in 0...N-1 {
+        var sumOdd = 0
+        var sumEven = 0
+        if i == 0 {
+            sumOdd = pfEven[N - 1] - pfEven[i]
+            sumEven = pfOdd[N - 1] - pfOdd[i]
+        } else {
+            sumOdd = pfOdd[i - 1] + (pfEven[N - 1] + pfEven[i])
+            sumEven = pfEven[i - 1] + (pfOdd[N - 1] + pfOdd[i])
+        }
+        
+        if sumOdd == sumEven {
+            count += 1
+        }
+    }
+    return count
+}
+
+let arrSIdx = [2, 3, 1, 4, 0, -1, 2, -2, 10, 8]
+print(specialIndexCount(arrSIdx))
+
+// TC : O(N+N+N) = O(3N) = O(N)
+// SC : O(N)
+
+
+// MARK: In-place Prefix Sum
+/*
+ Given an array A of N integers. Construct prefix sum of the array in the given array itself.
+ */
+print("======= inPlacePrefixSum ===========")
+func inPlacePrefixSum(_ arr: inout [Int]) -> [Int] {
+    let N = arr.count
+    for i in 1..<N {
+        arr[i] = arr[i - 1] + arr[i]
+    }
+    return arr
+}
+
+var arrIPPS = [1, 2, 3, 4, 5]
+print(inPlacePrefixSum(&arrIPPS))
