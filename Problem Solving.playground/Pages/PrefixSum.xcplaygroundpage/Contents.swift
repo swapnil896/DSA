@@ -191,3 +191,38 @@ func inPlacePrefixSum(_ arr: inout [Int]) -> [Int] {
 
 var arrIPPS = [1, 2, 3, 4, 5]
 print(inPlacePrefixSum(&arrIPPS))
+
+
+// MARK: Equilibrium Index
+/*
+ You are given an array A of integers of size N.
+ Your task is to find the equilibrium index of the given array
+ The equilibrium index of an array is an index such that the sum of elements at lower indexes is equal to the sum of elements at higher indexes.
+ If there are no elements that are at lower indexes or at higher indexes, then the corresponding sum of elements is considered as 0.
+ 
+ A = [-7, 1, 5, 2, -4, 3, 0]
+ O/p : 3
+ */
+print("======= Equilibrium index ===========")
+func findEquilibriumIndex(_ A: [Int]) -> Int {
+    let N = A.count
+    var pfSum: [Int] = Array(repeating: 0, count: N)
+    pfSum[0] = A[0]
+    for i in 1..<N {
+        pfSum[i] = pfSum[i - 1] + A[i]
+    }
+    
+    var ans = -1
+    for i in 0..<N {
+        var leftSum = i == 0 ? 0 : pfSum[i - 1]
+        var rightSum = pfSum[N - 1] - pfSum[i]
+        
+        if leftSum == rightSum {
+            ans = i
+            break
+        }
+    }
+    return ans
+}
+
+print(findEquilibriumIndex([-7, 1, 5, 2, -4, 3, 0]))
